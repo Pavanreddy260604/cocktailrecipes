@@ -1,0 +1,41 @@
+<%- include("partials/header.ejs") %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cocktail Details</title>
+    <link rel="stylesheet" href="/content.css">
+    <link rel="stylesheet" href="/layout.css">
+    
+</head>
+<body>
+    <main class="cock">
+        <h1>Cocktail Details</h1>
+        <% if (error) { %>
+            <p><%= error %></p>
+        <% } else if (drinks.length === 0) { %>
+            <p>No cocktail found.</p>
+        <% } else { %>
+            <% drinks.forEach(drink => { %>
+                <h2><%= drink.strDrink %></h2>
+                <p><strong>Category:</strong> <%= drink.strCategory %></p>
+                <p><strong>Alcoholic:</strong> <%= drink.strAlcoholic %></p>
+                <p><strong>Glass:</strong> <%= drink.strGlass %></p>
+                <p><strong>Instructions:</strong> <%= drink.strInstructions %></p>
+                <h3>Ingredients:</h3>
+                <ul>
+                    <% for (let i = 1; i <= 15; i++) { 
+                        const ingredient = drink[`strIngredient${i}`];
+                        const measure = drink[`strMeasure${i}`];
+                        if (ingredient) { %>
+                            <li><%= ingredient %> - <%= measure %></li>
+                    <% }} %>
+                </ul>
+            <% }) %>
+        <% } %>
+    </main>
+</body>
+</html>
+
+<%- include("partials/footer.ejs") %>
